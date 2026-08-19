@@ -11,16 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.swerksentrum.stellenboschworkcentre.data.database.AppDatabase
 import com.swerksentrum.stellenboschworkcentre.ui.theme.StellenboschWorkCentreTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            StellenboschWorkCentreTheme {
 
-            }
-        }
+        // Initialise database
+        val db = AppDatabase.getDatabase(applicationContext)
+        val userDao = db.userDao()
+
     }
 }
