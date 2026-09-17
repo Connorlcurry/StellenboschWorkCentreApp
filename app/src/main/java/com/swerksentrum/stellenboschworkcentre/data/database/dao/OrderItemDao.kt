@@ -17,6 +17,6 @@ interface OrderItemDao {
     suspend fun addOrderItem(orderItem: OrderItem) // Add a product to the order
 
     @Query("DELETE FROM order_items WHERE orderID = :orderID")
-    suspend fun deleteOrderItem(orderID: OrderItem) // Deletes a product from an order
+    suspend fun deleteOrderItem(orderID: Int) // Deletes a product from an order
 
 }

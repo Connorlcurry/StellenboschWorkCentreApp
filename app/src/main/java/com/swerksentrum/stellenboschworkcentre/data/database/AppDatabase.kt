@@ -49,7 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
 
                 // If the database doesn't exist, the database is created.
                 val instance = Room.databaseBuilder(
-                    context.applicationContext, // Use app context to prevent memory leaks
+                    context.applicationContext, // Uses app context to prevent memory leaks
                     AppDatabase::class.java, // Database class
                     "swc_database" // Database filename
                 ).build()

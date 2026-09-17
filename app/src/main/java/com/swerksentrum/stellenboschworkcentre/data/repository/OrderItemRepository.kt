@@ -14,6 +14,6 @@ class OrderItemRepository(
 
     suspend fun addOrderItem(orderItem: OrderItem) = orderItemDao.addOrderItem(orderItem)
 
-    suspend fun deleteOrderItem(orderID: OrderItem) = orderItemDao.deleteOrderItem(orderID)
+    suspend fun deleteOrderItem(orderID: Int) = orderItemDao.deleteOrderItem(orderID)
 
 }

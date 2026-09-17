@@ -14,10 +14,10 @@ interface ProductDao {
     fun getAllProducts(): Flow<List<Product>> // Fetches all the product records in the products table
 
     @Query("SELECT * FROM products WHERE productID = :productID")
-    suspend fun getProductById(productID: Int): Flow<List<Product>> // Fetches a specific product
+    fun getProductById(productID: Int): Flow<List<Product>> // Fetches a specific product
 
     @Query("SELECT * FROM products WHERE stockQuantity > 0")
-    suspend fun getAvailableProducts(): Flow<List<Product>> // Fetches all records of available stock
+    fun getAvailableProducts(): Flow<List<Product>> // Fetches all records of available stock
 
     @Insert
     suspend fun addProduct(product: Product): Long // Inserts a new product record in products

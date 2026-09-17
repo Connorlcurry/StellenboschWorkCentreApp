@@ -1,12 +1,14 @@
 package com.swerksentrum.stellenboschworkcentre.data.repository
 
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import com.swerksentrum.stellenboschworkcentre.data.database.dao.UserDao
 import com.swerksentrum.stellenboschworkcentre.data.database.entities.User
 
 class UserRepository (
 
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val firebaseDb: FirebaseFirestore
 
 ) {
 
