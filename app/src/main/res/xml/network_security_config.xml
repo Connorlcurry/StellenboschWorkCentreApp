@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Default policy for all connections -->
+    <base-config cleartextTrafficPermitted="false" />
+
+    <!-- Exception: Allow cleartext only for a specific local or staging domain -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="false">://example.com</domain>
+    </domain-config>
+</network-security-config>
