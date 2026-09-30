@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthViewModel: ViewModel() {
 
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> = _authState
@@ -61,7 +63,7 @@ class AuthViewModel: ViewModel() {
 
     }
 
-    fun register(email: String, password: String) {
+    fun register(firstName: String, lastName: String, email: String, password: String, phoneNum: String, address: String) {
 
 
         if (email.isEmpty() || password.isEmpty()) {
@@ -78,7 +80,35 @@ class AuthViewModel: ViewModel() {
 
                 if (task.isSuccessful) {
 
-                    _authState.value = AuthState.Authenticated
+                    val userId = auth.currentUser?.uid
+
+                    val userProfile = hashMapOf(
+
+                        "firstName" to firstName,
+                        "lastName" to lastName,
+                        "email" to email,
+                        "password" to password,
+                        "phoneNum" to phoneNum,
+                        "address" to address
+
+                    )
+
+                    if (userId != null) {
+
+                        db.collection("users").document(userId)
+                            .set(userProfile)
+                            .addOnSuccessListener {
+
+                                _authState.value = AuthState.Authenticated
+
+                            }
+                            .addOnFailureListener {
+
+                                _authState.value = AuthState.Error(it.message ?: "Beneficiary failed to register")
+
+                            }
+
+                    }
 
                 } else {
 

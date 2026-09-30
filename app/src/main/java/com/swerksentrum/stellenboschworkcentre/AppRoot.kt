@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.NavKey
 import com.swerksentrum.stellenboschworkcentre.screens.AboutDestination
 import com.swerksentrum.stellenboschworkcentre.screens.AboutScreen
 import com.swerksentrum.stellenboschworkcentre.screens.ChatbotDestination
@@ -36,12 +37,15 @@ import com.swerksentrum.stellenboschworkcentre.screens.navigateToShop
 import com.swerksentrum.stellenboschworkcentre.screens.registerScreen
 import com.swerksentrum.stellenboschworkcentre.screens.servicesScreen
 import com.swerksentrum.stellenboschworkcentre.screens.shopScreen
+import kotlinx.serialization.Serializable
 
 @Composable
 fun AppRoot() {
 
     val navController = rememberNavController()
 
+    val onNavigateToLogin = { navController.navigateToLogin() }
+    val onNavigateToRegister = { navController.navigateToRegister() }
     val onNavigateToHome = { navController.navigateToHome() }
     val onNavigateToAbout = { navController.navigateToAbout() }
     val onNavigateToServices = { navController.navigateToServices() }
@@ -59,22 +63,23 @@ fun AppRoot() {
 
         loginScreen(
 
-            onNavigateToMain = { navController.navigateToHome() },
-            onNavigateToRegister = { navController.navigateToRegister() }
+            onNavigateToHome = onNavigateToHome,
+            onNavigateToRegister = onNavigateToRegister
 
         )
 
         registerScreen(
 
-            onNavigateToMain = { navController.navigateToHome() },
+            onNavigateToHome = onNavigateToHome,
             onNavigateUp = { navController.navigateUp() },
-            onNavigateToLogin = { navController.navigateToLogin() }
+            onNavigateToLogin = onNavigateToLogin
 
         )
 
         homeScreen(
 
-            onNavigateToLogin = { navController.navigateToLogin() },
+            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToRegister = onNavigateToRegister,
             onNavigateToHome = onNavigateToHome,
             onNavigateToAbout = onNavigateToAbout,
             onNavigateToServices = onNavigateToServices,

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChatBubble
+import androidx.compose.material.icons.filled.DesignServices
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Face
@@ -15,11 +17,14 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -50,7 +55,10 @@ fun NavigationDrawerContent(
             Text(
 
                 text = "Stellenbosch Work Centre",
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
+                color = Color(0xff2f8137),
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
 
             )
 
@@ -100,7 +108,7 @@ fun NavigationDrawerContent(
 
                 icon = {
 
-                    Icon(Icons.Default.List, contentDescription = "Services")
+                    Icon(Icons.Default.DesignServices, contentDescription = "Services")
 
                 }
 
@@ -151,7 +159,7 @@ fun NavigationDrawerContent(
 
                 icon = {
 
-                    Icon(Icons.Default.Face, contentDescription = "AI Support")
+                    Icon(Icons.Default.ChatBubble, contentDescription = "AI Support")
 
                 }
 
@@ -180,7 +188,7 @@ fun NavigationDrawerContent(
 
             NavigationDrawerItem(
 
-                label = { Text(text = "Log Out") },
+                label = { Text(text = "Log Out", color = Color(0xff2f8137)) },
                 selected = false,
                 onClick = {
                     onLogout()
@@ -189,7 +197,7 @@ fun NavigationDrawerContent(
 
                 icon = {
 
-                    Icon(Icons.Default.ExitToApp, contentDescription = "Logout")
+                    Icon(Icons.Default.ExitToApp, contentDescription = "Logout", tint = Color(0xff2f8137))
 
                 }
 
