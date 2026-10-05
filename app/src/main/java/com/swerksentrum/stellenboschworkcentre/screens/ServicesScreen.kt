@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -24,6 +25,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -66,6 +68,7 @@ fun ServicesScreen(
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
     onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit,
     authViewModel: AuthViewModel
 
 ) {
@@ -87,6 +90,7 @@ fun ServicesScreen(
                 onNavigateToContact = onNavigateToContact,
                 onNavigateToChatbot = onNavigateToChatbot,
                 onNavigateToDonate = onNavigateToDonate,
+                onNavigateToAccount = onNavigateToAccount,
                 onLogout = { authViewModel.logout() },
                 onCloseDrawer = { scope.launch { drawerState.close() } }
 
@@ -115,18 +119,34 @@ fun ServicesScreen(
                         }
 
                     },
+
                     title = {
 
                         Text(
 
                             text = "Our Services",
-                            color = Color(0xff2f8137),
-                            style = MaterialTheme.typography.headlineLarge,
+                            color = Color(0xffd8a13a),
+                            style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold
 
                         )
 
+                    },
+
+                    actions = {
+
+                        Row {
+
+                            IconButton(onClick = onNavigateToAccount) {
+
+                                Icon(Icons.Default.Person, contentDescription = "Account")
+
+                            }
+
+                        }
+
                     }
+
 
                 )
 
@@ -150,7 +170,7 @@ fun ServicesScreen(
                     NavigationBarItem(
                         selected = true,
                         onClick = onNavigateToServices,
-                        icon = { Icon(Icons.Default.DesignServices, contentDescription = "Services", tint = Color(0xff2f8137)) },
+                        icon = { Icon(Icons.Default.DesignServices, contentDescription = "Services", tint = Color(0xff1f6f4a)) },
                         label = { Text("Services") }
                     )
                     NavigationBarItem(
@@ -164,6 +184,26 @@ fun ServicesScreen(
                         onClick = onNavigateToContact,
                         icon = { Icon(Icons.Default.Email, contentDescription = "Contact") },
                         label = { Text("Contact") }
+                    )
+
+                }
+
+            },
+            floatingActionButton = {
+
+                FloatingActionButton(
+
+                    onClick = onNavigateToChatbot,
+                    containerColor = Color(0xffd8a13a),
+                    contentColor = Color(0xFF8C4800)
+
+                ) {
+
+                    Text(
+
+                        text = "✦",
+                        fontSize = 25.sp
+
                     )
 
                 }
@@ -183,28 +223,16 @@ fun ServicesScreen(
 
             ) {
 
-                Card(
+                Column(
 
                     modifier = Modifier
                         .fillMaxWidth(0.85f)
-                        .padding(vertical = 8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {
 
-                    Column(
-
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-
-                    ) {
-
-                        Text(text = "High-quality services delivered by our dedicated team, supporting meaningful employment.")
-
-                    }
+                    Text(text = "High-quality services delivered by our dedicated team, supporting meaningful employment.")
 
                 }
 
@@ -232,7 +260,7 @@ fun ServicesScreen(
                         Text(
 
                             text = "What We Offer",
-                            color = Color(0xff2f8137),
+                            color = Color(0xff1f6f4a),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Bold
 
@@ -267,7 +295,7 @@ fun ServicesScreen(
                                     Text(
 
                                         text = "Folding Services",
-                                        color = Color(0xff2f8137),
+                                        color = Color(0xff1f6f4a),
                                         fontSize = 18.sp,
                                         fontWeight = FontWeight.Bold
 
@@ -288,11 +316,11 @@ fun ServicesScreen(
 
                                         onClick = onNavigateToContact,
                                         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                                        border = BorderStroke(1.dp, Color(0xffd2a622))
+                                        border = BorderStroke(1.dp, Color(0xffd8a13a))
 
                                     ) {
 
-                                        Text(text = "Request Service", color = Color(0xffd2a622))
+                                        Text(text = "Request Service", color = Color(0xffd8a13a))
 
                                     }
                                 }
@@ -319,7 +347,7 @@ fun ServicesScreen(
                                     Text(
 
                                         text = "Sorting Services",
-                                        color = Color(0xff2f8137),
+                                        color = Color(0xff1f6f4a),
                                         fontSize = 18.sp,
                                         fontWeight = FontWeight.Bold
 
@@ -340,11 +368,11 @@ fun ServicesScreen(
 
                                         onClick = onNavigateToContact,
                                         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                                        border = BorderStroke(1.dp, Color(0xffd2a622))
+                                        border = BorderStroke(1.dp, Color(0xffd8a13a))
 
                                     ) {
 
-                                        Text(text = "Request Service", color = Color(0xffd2a622))
+                                        Text(text = "Request Service", color = Color(0xffd8a13a))
 
                                     }
                                 }
@@ -371,7 +399,7 @@ fun ServicesScreen(
                                     Text(
 
                                         text = "Packaging Services",
-                                        color = Color(0xff2f8137),
+                                        color = Color(0xff1f6f4a),
                                         fontSize = 18.sp,
                                         fontWeight = FontWeight.Bold
 
@@ -392,11 +420,11 @@ fun ServicesScreen(
 
                                         onClick = onNavigateToContact,
                                         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                                        border = BorderStroke(1.dp, Color(0xffd2a622))
+                                        border = BorderStroke(1.dp, Color(0xffd8a13a))
 
                                     ) {
 
-                                        Text(text = "Request Service", color = Color(0xffd2a622))
+                                        Text(text = "Request Service", color = Color(0xffd8a13a))
 
                                     }
                                 }
@@ -423,7 +451,7 @@ fun ServicesScreen(
                                     Text(
 
                                         text = "Photocopying",
-                                        color = Color(0xff2f8137),
+                                        color = Color(0xff1f6f4a),
                                         fontSize = 18.sp,
                                         fontWeight = FontWeight.Bold
 
@@ -444,11 +472,11 @@ fun ServicesScreen(
 
                                         onClick = onNavigateToContact,
                                         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                                        border = BorderStroke(1.dp, Color(0xffd2a622))
+                                        border = BorderStroke(1.dp, Color(0xffd8a13a))
 
                                     ) {
 
-                                        Text(text = "Request Service", color = Color(0xffd2a622))
+                                        Text(text = "Request Service", color = Color(0xffd8a13a))
 
                                     }
 
@@ -459,6 +487,26 @@ fun ServicesScreen(
                         }
 
                     }
+
+                }
+
+                // Footer
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+
+                ) {
+
+                    Text(
+
+                        text = "© 2026 Stellenbosch Work Centre. Empowering ability. Creating opportunity.",
+                        color = Color(0xE23A3A3A),
+                        fontSize = 10.sp
+
+                    )
 
                 }
 
@@ -482,7 +530,8 @@ fun NavGraphBuilder.servicesScreen(
     onNavigateToShop: () -> Unit,
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
-    onNavigateToDonate: () -> Unit
+    onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit
 
 ) {
 
@@ -500,6 +549,7 @@ fun NavGraphBuilder.servicesScreen(
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount,
             authViewModel = authViewModel
 
         )

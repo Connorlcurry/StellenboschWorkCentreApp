@@ -129,7 +129,7 @@ fun RegisterScreen(
 
                     Text(
 
-                        text = "Register a Beneficiary",
+                        text = "Register an Account",
                         color = Color(0xff2f8137),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold

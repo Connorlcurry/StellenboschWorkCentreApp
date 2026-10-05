@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -37,6 +38,7 @@ fun NavigationDrawerContent(
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
     onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit,
     onLogout: () -> Unit,
     onCloseDrawer: () -> Unit
 
@@ -56,7 +58,7 @@ fun NavigationDrawerContent(
 
                 text = "Stellenbosch Work Centre",
                 modifier = Modifier.padding(16.dp),
-                color = Color(0xff2f8137),
+                color = Color(0xff1f6f4a),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
 
@@ -77,6 +79,22 @@ fun NavigationDrawerContent(
                 icon = {
 
                     Icon(Icons.Default.Home,contentDescription = "Home")
+
+                }
+
+            )
+            NavigationDrawerItem(
+
+                label = { Text(text = "Account") },
+                selected = false,
+                onClick = {
+                    onNavigateToAccount()
+                    onCloseDrawer()
+                },
+
+                icon = {
+
+                    Icon(Icons.Default.Person,contentDescription = "Account")
 
                 }
 
@@ -188,7 +206,7 @@ fun NavigationDrawerContent(
 
             NavigationDrawerItem(
 
-                label = { Text(text = "Log Out", color = Color(0xff2f8137)) },
+                label = { Text(text = "Log Out", color = Color.Red) },
                 selected = false,
                 onClick = {
                     onLogout()
@@ -197,7 +215,7 @@ fun NavigationDrawerContent(
 
                 icon = {
 
-                    Icon(Icons.Default.ExitToApp, contentDescription = "Logout", tint = Color(0xff2f8137))
+                    Icon(Icons.Default.ExitToApp, contentDescription = "Logout", tint = Color.Red)
 
                 }
 

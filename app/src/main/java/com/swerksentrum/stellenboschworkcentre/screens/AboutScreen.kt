@@ -1,14 +1,19 @@
 package com.swerksentrum.stellenboschworkcentre.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -18,6 +23,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,6 +32,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -68,6 +75,7 @@ fun AboutScreen(
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
     onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit,
     authViewModel: AuthViewModel
 
 ) {
@@ -89,6 +97,7 @@ fun AboutScreen(
                 onNavigateToContact = onNavigateToContact,
                 onNavigateToChatbot = onNavigateToChatbot,
                 onNavigateToDonate = onNavigateToDonate,
+                onNavigateToAccount = onNavigateToAccount,
                 onLogout = { authViewModel.logout() },
                 onCloseDrawer = { scope.launch { drawerState.close() } }
 
@@ -122,12 +131,26 @@ fun AboutScreen(
 
                         Text(
 
-                            text = "About SWC",
-                            color = Color(0xff2f8137),
-                            style = MaterialTheme.typography.headlineLarge,
+                            text = "About Us",
+                            color = Color(0xffd8a13a),
+                            style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold
 
                         )
+
+                    },
+
+                    actions = {
+
+                        Row {
+
+                            IconButton(onClick = onNavigateToAccount) {
+
+                                Icon(Icons.Default.Person, contentDescription = "Account")
+
+                            }
+
+                        }
 
                     }
 
@@ -147,7 +170,7 @@ fun AboutScreen(
                     NavigationBarItem(
                         selected = true,
                         onClick = onNavigateToAbout,
-                        icon = { Icon(Icons.Default.Info, contentDescription = "About", tint = Color(0xff2f8137)) },
+                        icon = { Icon(Icons.Default.Info, contentDescription = "About", tint = Color(0xff1f6f4a)) },
                         label = { Text("About") }
                     )
                     NavigationBarItem(
@@ -171,6 +194,26 @@ fun AboutScreen(
 
                 }
 
+            },
+            floatingActionButton = {
+
+                FloatingActionButton(
+
+                    onClick = onNavigateToChatbot,
+                    containerColor = Color(0xffd8a13a),
+                    contentColor = Color(0xFF8C4800)
+
+                ) {
+
+                    Text(
+
+                        text = "✦",
+                        fontSize = 25.sp
+
+                    )
+
+                }
+
             }
 
         ) { paddingValues ->
@@ -190,50 +233,39 @@ fun AboutScreen(
 
                     painter = painterResource(id = R.drawable.volunteers),
                     contentDescription = "Volunteers",
-                    modifier = Modifier.clip(RoundedCornerShape(15.dp))
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(15.dp))
                         .fillMaxWidth(0.85f)
 
                 )
 
                 Spacer(modifier = Modifier.height(18.dp))
 
-                Card(
+                Column(
 
                     modifier = Modifier
                         .fillMaxWidth(0.85f)
-                        .padding(vertical = 8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.Start
 
                 ) {
 
-                    Column(
+                    Text(
 
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        text = "About Our Mission",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xff1f6f4a)
 
-                    ) {
+                    )
 
-                        Text(
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                            text = "About Our Mission",
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xff2f8137)
+                    Text(text = "Stellenbosch Work Centre is dedicated to empowering adults with disabilities through comprehensive work training, skills development programs, and meaningful social inclusion initiatives")
 
-                        )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(text = "Stellenbosch Work Centre is dedicated to empowering adults with disabilities through comprehensive work training, skills development programs, and meaningful social inclusion initiatives")
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(text = "We believe every individual deserves the opportunity to contribute, grow, and thrive.")
-
-                    }
+                    Text(text = "We believe every individual deserves the opportunity to contribute, grow, and thrive.")
 
                 }
 
@@ -249,43 +281,82 @@ fun AboutScreen(
 
                 ) {
 
-                    Column(
+                    Row(
 
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .height(IntrinsicSize.Min),
+                        verticalAlignment = Alignment.CenterVertically
 
                     ) {
 
-                        Text(
+                        Box(
 
-                            text = "Our Vision",
-                            color = Color(0xff2f8137),
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
+                            modifier = Modifier
+                                .width(4.dp)
+                                .fillMaxHeight()
+                                .background(Color(0xffd8a13a))
 
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Column(
 
-                        Text(text = "A community where every person, regardless of ability, has access to meaningful work opportunities and support.")
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Button(
-
-                            onClick = onNavigateToContact,
-                            modifier = Modifier.weight(1f),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xff2f8137))
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(20.dp),
+                            horizontalAlignment = Alignment.Start
 
                         ) {
 
-                            Text(text = "Learn More")
+                            Text(
+
+                                text = "Our Vision",
+                                color = Color(0xff1f6f4a),
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold
+
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Text(text = "A community where every person, regardless of ability, has access to meaningful work opportunities and support.")
 
                         }
 
                     }
+
+                }
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                Button(
+
+                    onClick = onNavigateToContact,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xff1f6f4a))
+
+                ) {
+
+                    Text(text = "Contact Us")
+
+                }
+
+                // Footer
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+
+                ) {
+
+                    Text(
+
+                        text = "© 2026 Stellenbosch Work Centre. Empowering ability. Creating opportunity.",
+                        color = Color(0xE23A3A3A),
+                        fontSize = 10.sp
+
+                    )
 
                 }
 
@@ -309,7 +380,8 @@ fun NavGraphBuilder.aboutScreen(
     onNavigateToShop: () -> Unit,
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
-    onNavigateToDonate: () -> Unit
+    onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit
 
 ) {
     composable<AboutDestination> {
@@ -326,6 +398,7 @@ fun NavGraphBuilder.aboutScreen(
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount,
             authViewModel = authViewModel
 
         )

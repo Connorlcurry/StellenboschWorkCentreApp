@@ -20,13 +20,16 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -73,6 +76,7 @@ fun ShopScreen(
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
     onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit,
     authViewModel: AuthViewModel
 
 ) {
@@ -94,6 +98,7 @@ fun ShopScreen(
                 onNavigateToContact = onNavigateToContact,
                 onNavigateToChatbot = onNavigateToChatbot,
                 onNavigateToDonate = onNavigateToDonate,
+                onNavigateToAccount = onNavigateToAccount,
                 onLogout = { authViewModel.logout() },
                 onCloseDrawer = { scope.launch { drawerState.close() } }
 
@@ -127,14 +132,29 @@ fun ShopScreen(
 
                         Text(
 
-                        text = "Our Shop",
-                        color = Color(0xff2f8137),
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold
+                            text = "Shop",
+                            color = Color(0xffd8a13a),
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold
 
-                    )
+                        )
+
+                    },
+
+                    actions = {
+
+                        Row {
+
+                            IconButton(onClick = onNavigateToAccount) {
+
+                                Icon(Icons.Default.Person, contentDescription = "Account")
+
+                            }
+
+                        }
 
                     }
+
 
                 )
 
@@ -164,7 +184,7 @@ fun ShopScreen(
                     NavigationBarItem(
                         selected = true,
                         onClick = onNavigateToShop,
-                        icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop", tint = Color(0xff2f8137)) },
+                        icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Shop", tint = Color(0xff1f6f4a)) },
                         label = { Text("Shop") }
                     )
                     NavigationBarItem(
@@ -172,6 +192,26 @@ fun ShopScreen(
                         onClick = onNavigateToContact,
                         icon = { Icon(Icons.Default.Email, contentDescription = "Contact") },
                         label = { Text("Contact") }
+                    )
+
+                }
+
+            },
+            floatingActionButton = {
+
+                FloatingActionButton(
+
+                    onClick = onNavigateToChatbot,
+                    containerColor = Color(0xffd8a13a),
+                    contentColor = Color(0xFF8C4800)
+
+                ) {
+
+                    Text(
+
+                        text = "✦",
+                        fontSize = 25.sp
+
                     )
 
                 }
@@ -191,6 +231,43 @@ fun ShopScreen(
 
             ) {
 
+                Column(
+
+                    modifier = Modifier
+                        .fillMaxWidth(0.90f)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+
+                ) {
+
+                    Text(
+
+                        text = "Handmade with Love",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xff1f6f4a)
+
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+
+                        text = "Every purchase supports our beneficiaries and their journey to independence. Each piece is made to order, so allow 2 days or 1 week depending on the item.",
+                        fontSize = 15.sp
+
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Button(onClick = onNavigateToContact, colors = ButtonDefaults.buttonColors(containerColor = Color(0xff1f6f4a))) {
+
+                        Text(text = "Enquire About a Product")
+
+                    }
+
+                }
+
                 Card(
 
                     modifier = Modifier
@@ -200,30 +277,6 @@ fun ShopScreen(
                     elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
 
                 ) {
-
-                    Column(
-
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-
-                    ) {
-
-                        Text(
-
-                            text = "Handmade with Love",
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xff2f8137)
-
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(text = "Every purchase supports our artisans and their journey to independence.")
-
-                    }
 
                     Column(
 
@@ -288,6 +341,16 @@ fun ShopScreen(
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
+                                    Text(
+
+                                        text = "⏱ Made to order · Ready in 2 days",
+                                        color = Color(0xffd8a13a),
+                                        fontSize = 14.sp
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
                                     Row(
 
                                         modifier = Modifier.fillMaxWidth(),
@@ -300,14 +363,15 @@ fun ShopScreen(
 
                                             text = "R450",
                                             fontSize = 20.sp,
-                                            color = Color((0xff2f8137))
+                                            color = Color((0xff1f6f4a)),
+                                            fontWeight = FontWeight.Bold
 
                                         )
 
                                         IconButton(
 
                                             onClick = { TODO() },
-                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff2f8137))
+                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff1f6f4a))
 
                                         ) {
 
@@ -374,6 +438,16 @@ fun ShopScreen(
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
+                                    Text(
+
+                                        text = "⏱ Made to order · Ready in 2 days",
+                                        color = Color(0xffd8a13a),
+                                        fontSize = 14.sp
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
                                     Row(
 
                                         modifier = Modifier.fillMaxWidth(),
@@ -386,14 +460,15 @@ fun ShopScreen(
 
                                             text = "R280",
                                             fontSize = 20.sp,
-                                            color = Color((0xff2f8137))
+                                            color = Color((0xff1f6f4a)),
+                                            fontWeight = FontWeight.Bold
 
                                         )
 
                                         IconButton(
 
                                             onClick = { TODO() },
-                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff2f8137))
+                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff1f6f4a))
 
                                         ) {
 
@@ -460,6 +535,16 @@ fun ShopScreen(
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
+                                    Text(
+
+                                        text = "⏱ Made to order · Ready in 2 days",
+                                        color = Color(0xffd8a13a),
+                                        fontSize = 14.sp
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
                                     Row(
 
                                         modifier = Modifier.fillMaxWidth(),
@@ -472,14 +557,15 @@ fun ShopScreen(
 
                                             text = "R350",
                                             fontSize = 20.sp,
-                                            color = Color((0xff2f8137))
+                                            color = Color((0xff1f6f4a)),
+                                            fontWeight = FontWeight.Bold
 
                                         )
 
                                         IconButton(
 
                                             onClick = { TODO() },
-                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff2f8137))
+                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff1f6f4a))
 
                                         ) {
 
@@ -546,6 +632,16 @@ fun ShopScreen(
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
+                                    Text(
+
+                                        text = "⏱ Made to order · Ready in 2 days",
+                                        color = Color(0xffd8a13a),
+                                        fontSize = 14.sp
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
                                     Row(
 
                                         modifier = Modifier.fillMaxWidth(),
@@ -558,14 +654,15 @@ fun ShopScreen(
 
                                             text = "R320",
                                             fontSize = 20.sp,
-                                            color = Color((0xff2f8137))
+                                            color = Color((0xff1f6f4a)),
+                                            fontWeight = FontWeight.Bold
 
                                         )
 
                                         IconButton(
 
                                             onClick = { TODO() },
-                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff2f8137))
+                                            colors = IconButtonDefaults.iconButtonColors(containerColor = Color(0xff1f6f4a))
 
                                         ) {
 
@@ -591,6 +688,26 @@ fun ShopScreen(
 
                 }
 
+                // Footer
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+
+                ) {
+
+                    Text(
+
+                        text = "© 2026 Stellenbosch Work Centre. Empowering ability. Creating opportunity.",
+                        color = Color(0xE23A3A3A),
+                        fontSize = 10.sp
+
+                    )
+
+                }
+
             }
 
         }
@@ -611,7 +728,8 @@ fun NavGraphBuilder.shopScreen(
     onNavigateToShop: () -> Unit,
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
-    onNavigateToDonate: () -> Unit
+    onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit
 
 ) {
 
@@ -629,6 +747,7 @@ fun NavGraphBuilder.shopScreen(
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount,
             authViewModel = authViewModel
 
         )

@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,6 +27,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -48,8 +50,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -77,6 +82,7 @@ fun HomeScreen(
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
     onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit,
     authViewModel: AuthViewModel
 
 ) {
@@ -137,6 +143,7 @@ fun HomeScreen(
                 onNavigateToContact = onNavigateToContact,
                 onNavigateToChatbot = onNavigateToChatbot,
                 onNavigateToDonate = onNavigateToDonate,
+                onNavigateToAccount = onNavigateToAccount,
                 onLogout = { authViewModel.logout() },
                 onCloseDrawer = { scope.launch { drawerState.close() } }
 
@@ -170,20 +177,33 @@ fun HomeScreen(
 
                         Text(
 
-                            text = if (firstName.isNotBlank())
-                                "Welcome back, $firstName"
-                            else "Welcome back",
-                            color = Color(0xff2f8137),
-                            style = MaterialTheme.typography.headlineLarge,
+                            text = "Stellenbosch Work Centre",
+                            color = Color(0xffd8a13a),
+                            style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold
 
                         )
 
                     },
 
-                    )
+                    actions = {
+
+                        Row {
+
+                            IconButton(onClick = onNavigateToAccount) {
+
+                                Icon(Icons.Default.Person, contentDescription = "Account")
+
+                            }
+
+                        }
+
+                    }
+
+                )
 
             },
+
             bottomBar = {
 
                 NavigationBar {
@@ -191,7 +211,7 @@ fun HomeScreen(
                     NavigationBarItem(
                         selected = true,
                         onClick = onNavigateToHome,
-                        icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color(0xff2f8137)) },
+                        icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color(0xff1f6f4a)) },
                         label = { Text("Home") }
                     )
                     NavigationBarItem(
@@ -221,6 +241,26 @@ fun HomeScreen(
 
                 }
 
+            },
+            floatingActionButton = {
+
+                FloatingActionButton(
+
+                    onClick = onNavigateToChatbot,
+                    containerColor = Color(0xffd8a13a),
+                    contentColor = Color(0xFF8C4800)
+
+                ) {
+
+                    Text(
+
+                        text = "✦",
+                        fontSize = 25.sp
+
+                    )
+
+                }
+
             }
 
         ) { paddingValues ->
@@ -236,84 +276,140 @@ fun HomeScreen(
 
             ) {
 
-                Card(
+                Column(
 
                     modifier = Modifier
-                        .fillMaxWidth(0.85f)
-                        .padding(vertical = 8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.Start
 
                 ) {
 
-                    Column(
+                    Text(
 
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(24.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        text = if (firstName.isNotBlank())
+                            "Welcome back, $firstName"
+                        else "Welcome back",
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontSize = 20.sp
+
+                    )
+
+                }
+
+                Column(
+
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.Start
+
+                ) {
+
+                    Text(
+
+                        text = buildAnnotatedString {
+                            append("Empowering ")
+                            withStyle(style = SpanStyle(color = Color(0xff1f6f4a))) {
+                                append("Ability. ")
+                            }
+                            append("Creating ")
+                            withStyle(style = SpanStyle(color = Color(0xff1f6f4a))) {
+                                append("Opportunity. ")
+                            }
+                        },
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp
+
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+
+                        fontSize = 15.sp,
+                        text = "Supporting adults with disabilities through meaningful work, skills development, and social inclusion."
+
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Row(
+
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
 
                     ) {
 
-                        Text(
+                        Button(
 
-                            text = "Empowering Ability. Creating Opportunity.",
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xff2f8137)
-
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Text(
-
-                            fontSize = 15.sp,
-                            text = "Supporting adults with disabilities through meaningful work, skills development, and social inclusion."
-
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Row(
-
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            onClick = onNavigateToDonate,
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xffd8a13a))
 
                         ) {
 
-                            Button(
+                            Text(text = "Donate Now", color = Color.Black)
 
-                                onClick = onNavigateToDonate,
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xffd2a622))
+                        }
 
-                            ) {
+                        OutlinedButton(
 
-                                Text(text = "Donate Now")
+                            onClick = onNavigateToAbout,
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            border = BorderStroke(2.dp, Color(0xff1f6f4a))
 
-                            }
+                        ) {
 
-                            OutlinedButton(
+                            Text(text = "Learn More", color = Color(0xff1f6f4a))
 
-                                onClick = onNavigateToAbout,
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                                border = BorderStroke(1.dp, Color(0xff2f8137))
+                        }
 
-                            ) {
+                    }
 
-                                Text(text = "Learn More", color = Color(0xff2f8137))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                            }
+                    Card(
+
+                        modifier = Modifier
+                            .fillMaxWidth(0.50f)
+                            .padding(vertical = 8.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+
+                    ) {
+
+                        Column(
+
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalAlignment = Alignment.Start
+
+                        ) {
+
+                            Text(
+
+                                text = "500+",
+                                color = Color(0xff1f6f4a),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp
+
+                            )
+
+                            Text(
+
+                                text = "Lives impacted"
+
+                            )
 
                         }
 
                     }
 
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 Card(
 
@@ -337,7 +433,7 @@ fun HomeScreen(
                         Text(
 
                             text = "Success Stories",
-                            color = Color(0xff2f8137),
+                            color = Color(0xff1f6f4a),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Bold
 
@@ -382,7 +478,7 @@ fun HomeScreen(
                                     Text(
 
                                         text = "“",
-                                        color = Color(0xffd2a622),
+                                        color = Color(0xffd8a13a),
                                         fontSize = 36.sp,
                                         fontWeight = FontWeight.Bold,
                                         lineHeight = 24.sp
@@ -405,7 +501,66 @@ fun HomeScreen(
                                         text = "Sarah M.",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 15.sp,
-                                        color = Color(0xff2f8137)
+                                        color = Color(0xff1f6f4a)
+
+                                    )
+
+                                    Text(
+
+                                        text = "Packaging team member",
+                                        fontSize = 13.sp,
+                                        color = Color.Gray
+
+                                    )
+
+                                }
+
+                            }
+
+                            Card(
+
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FBF9)),
+                                border = BorderStroke(1.dp, Color(0xFFE2E8E2)),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+
+                            ) {
+
+                                Column(
+
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+
+                                ) {
+
+                                    Text(
+
+                                        text = "“",
+                                        color = Color(0xffd8a13a),
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        lineHeight = 24.sp
+
+                                    )
+
+                                    Text(
+
+                                        text = "I found more hope in my future. I found a community that believes in me every day.",
+                                        fontSize = 14.sp,
+                                        fontStyle = FontStyle.Italic,
+                                        color = Color.DarkGray
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(12.dp))
+
+                                    Text(
+
+                                        text = "David L.",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp,
+                                        color = Color(0xff1f6f4a)
 
                                     )
 
@@ -441,7 +596,7 @@ fun HomeScreen(
                                     Text(
 
                                         text = "“",
-                                        color = Color(0xffd2a622),
+                                        color = Color(0xffd8a13a),
                                         fontSize = 36.sp,
                                         fontWeight = FontWeight.Bold,
                                         lineHeight = 24.sp
@@ -450,7 +605,7 @@ fun HomeScreen(
 
                                     Text(
 
-                                        text = "I found more hope in my future. I found a community that believes in me every day.",
+                                        text = "The skills I learned opened doors. I'm proud of the work I do every day.",
                                         fontSize = 14.sp,
                                         fontStyle = FontStyle.Italic,
                                         color = Color.DarkGray
@@ -461,18 +616,110 @@ fun HomeScreen(
 
                                     Text(
 
-                                        text = "David L.",
+                                        text = "Thandi K.",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 15.sp,
-                                        color = Color(0xff2f8137)
+                                        color = Color(0xff1f6f4a)
 
                                     )
 
                                     Text(
 
-                                        text = "Handcrafts",
+                                        text = "Office Assistant",
                                         fontSize = 13.sp,
                                         color = Color.Gray
+
+                                    )
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                Card(
+
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+
+                ) {
+
+                    Column(
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+
+                    ) {
+
+                        Text(
+
+                            text = "Our Impact",
+                            color = Color(0xff1f6f4a),
+                            fontSize = 28.sp,
+                            fontWeight = FontWeight.Bold
+
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+
+                            text = "Transforming lives through meaningful opportunities and dedicated support.",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+
+                        )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Column(
+
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+
+                        ) {
+
+                            Card(
+
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FBF9)),
+                                border = BorderStroke(1.dp, Color(0xFFE2E8E2)),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+
+                            ) {
+
+                                Column(
+
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+
+                                ) {
+
+                                    Text(
+
+                                        text = "500+",
+                                        color = Color(0xff1f6f4a),
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.Bold
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(4.dp))
+
+                                    Text(
+
+                                        text = "Beneficiaries supported",
+                                        fontSize = 15.sp
 
                                     )
 
@@ -499,39 +746,97 @@ fun HomeScreen(
 
                                     Text(
 
-                                        text = "“",
-                                        color = Color(0xffd2a622),
+                                        text = "15",
+                                        color = Color(0xff1f6f4a),
                                         fontSize = 36.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        lineHeight = 24.sp
+                                        fontWeight = FontWeight.Bold
 
                                     )
 
+                                    Spacer(modifier = Modifier.height(4.dp))
+
                                     Text(
 
-                                        text = "The skills I learned opened doors. I'm proud of the work I do every day.",
-                                        fontSize = 14.sp,
-                                        fontStyle = FontStyle.Italic,
-                                        color = Color.DarkGray
+                                        text = "Training programs",
+                                        fontSize = 15.sp
 
                                     )
 
-                                    Spacer(modifier = Modifier.height(12.dp))
+                                }
+
+                            }
+
+                            Card(
+
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FBF9)),
+                                border = BorderStroke(1.dp, Color(0xFFE2E8E2)),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+
+                            ) {
+
+                                Column(
+
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+
+                                ) {
 
                                     Text(
 
-                                        text = "Thandi K.",
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 15.sp,
-                                        color = Color(0xff2f8137)
+                                        text = "200+",
+                                        color = Color(0xff1f6f4a),
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.Bold
 
                                     )
 
+                                    Spacer(modifier = Modifier.height(4.dp))
+
                                     Text(
 
-                                        text = "Office Work",
-                                        fontSize = 13.sp,
-                                        color = Color.Gray
+                                        text = "Jobs created",
+                                        fontSize = 15.sp
+
+                                    )
+
+                                }
+
+                            }
+
+                            Card(
+
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FBF9)),
+                                border = BorderStroke(1.dp, Color(0xFFE2E8E2)),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+
+                            ) {
+
+                                Column(
+
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+
+                                ) {
+
+                                    Text(
+
+                                        text = "25+",
+                                        color = Color(0xff1f6f4a),
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.Bold
+
+                                    )
+
+                                    Spacer(modifier = Modifier.height(4.dp))
+
+                                    Text(
+
+                                        text = "Years of service",
+                                        fontSize = 15.sp
 
                                     )
 
@@ -542,6 +847,26 @@ fun HomeScreen(
                         }
 
                     }
+
+                }
+
+                // Footer
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp)
+
+                ) {
+
+                    Text(
+
+                        text = "© 2026 Stellenbosch Work Centre. Empowering ability. Creating opportunity.",
+                        color = Color(0xE23A3A3A),
+                        fontSize = 10.sp
+
+                    )
 
                 }
 
@@ -566,7 +891,8 @@ fun NavGraphBuilder.homeScreen(
     onNavigateToShop: () -> Unit,
     onNavigateToContact: () -> Unit,
     onNavigateToChatbot: () -> Unit,
-    onNavigateToDonate: () -> Unit
+    onNavigateToDonate: () -> Unit,
+    onNavigateToAccount: () -> Unit
 
 ) {
 
@@ -585,6 +911,7 @@ fun NavGraphBuilder.homeScreen(
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount,
             authViewModel = authViewModel
 
         )

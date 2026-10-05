@@ -26,6 +26,7 @@ import com.swerksentrum.stellenboschworkcentre.screens.donateScreen
 import com.swerksentrum.stellenboschworkcentre.screens.homeScreen
 import com.swerksentrum.stellenboschworkcentre.screens.loginScreen
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToAbout
+import com.swerksentrum.stellenboschworkcentre.screens.navigateToAccount
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToChatbot
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToContact
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToDonate
@@ -34,9 +35,11 @@ import com.swerksentrum.stellenboschworkcentre.screens.navigateToLogin
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToRegister
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToServices
 import com.swerksentrum.stellenboschworkcentre.screens.navigateToShop
+import com.swerksentrum.stellenboschworkcentre.screens.UserAccountDestination
 import com.swerksentrum.stellenboschworkcentre.screens.registerScreen
 import com.swerksentrum.stellenboschworkcentre.screens.servicesScreen
 import com.swerksentrum.stellenboschworkcentre.screens.shopScreen
+import com.swerksentrum.stellenboschworkcentre.screens.userAccountScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -44,6 +47,7 @@ fun AppRoot() {
 
     val navController = rememberNavController()
 
+    val onNavigateUp = { navController.navigateUp() }
     val onNavigateToLogin = { navController.navigateToLogin() }
     val onNavigateToRegister = { navController.navigateToRegister() }
     val onNavigateToHome = { navController.navigateToHome() }
@@ -53,6 +57,7 @@ fun AppRoot() {
     val onNavigateToContact = { navController.navigateToContact() }
     val onNavigateToChatbot = { navController.navigateToChatbot() }
     val onNavigateToDonate = { navController.navigateToDonate() }
+    val onNavigateToAccount = { navController.navigateToAccount() }
 
     NavHost(
 
@@ -86,7 +91,8 @@ fun AppRoot() {
             onNavigateToShop = onNavigateToShop,
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
-            onNavigateToDonate = onNavigateToDonate
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -99,7 +105,8 @@ fun AppRoot() {
             onNavigateToShop = onNavigateToShop,
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
-            onNavigateToDonate = onNavigateToDonate
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -112,7 +119,8 @@ fun AppRoot() {
             onNavigateToShop = onNavigateToShop,
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
-            onNavigateToDonate = onNavigateToDonate
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -125,7 +133,8 @@ fun AppRoot() {
             onNavigateToShop = onNavigateToShop,
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
-            onNavigateToDonate = onNavigateToDonate
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -138,7 +147,8 @@ fun AppRoot() {
             onNavigateToShop = onNavigateToShop,
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
-            onNavigateToDonate = onNavigateToDonate
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -152,6 +162,7 @@ fun AppRoot() {
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
@@ -165,6 +176,22 @@ fun AppRoot() {
             onNavigateToContact = onNavigateToContact,
             onNavigateToChatbot = onNavigateToChatbot,
             onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
+
+        )
+
+        userAccountScreen(
+
+            onNavigateUp = { navController.navigateUp() },
+            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToHome = onNavigateToHome,
+            onNavigateToAbout = onNavigateToAbout,
+            onNavigateToServices = onNavigateToServices,
+            onNavigateToShop = onNavigateToShop,
+            onNavigateToContact = onNavigateToContact,
+            onNavigateToChatbot = onNavigateToChatbot,
+            onNavigateToDonate = onNavigateToDonate,
+            onNavigateToAccount = onNavigateToAccount
 
         )
 
